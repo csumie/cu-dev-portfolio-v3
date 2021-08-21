@@ -93,6 +93,30 @@ gsap.from('.home__description', {opacity: 0, duration: 1, delay:1.8, y: 30})
 gsap.from('.home__button', {opacity: 0, duration: 1, delay:2.1, y: 30})
 gsap.from('.home__img', {opacity: 0, duration: 1, delay:1.3, y: 30})
 
+// ABOUT
+gsap.from('.about', {opacity: 0, duration: 1, delay:1.6, y: 30})
+gsap.from('.title', {opacity: 0, duration: 1, delay:1.8, y: 30})
+gsap.from('.aboutMe', {opacity: 0, duration: 1, delay:2.1, y: 30})
+
+// SKILLS
+gsap.from('.skills-section', {opacity: 0, duration: 1, delay:1.6, y: 30})
+gsap.from('.row', {opacity: 0, duration: 1, delay:1.8, y: 30})
+// gsap.from('.', {opacity: 0, duration: 1, delay:2.1, y: 30})
+
+// PROJECTS
+gsap.from('.projects-section', {opacity: 0, duration: 1, delay:1.6, y: 30})
+gsap.from('.container-project', {opacity: 0, duration: 1, delay:1.8, y: 30})
+
+// CONTACT CONTAINER AND FORM
+gsap.from('.contact-container', {opacity: 0, duration: 1, delay:1.6, y: 30})
+gsap.from('.cognito', {opacity: 0, duration: 1, delay:1.8, y: 30})
+
+// FOOTER
+gsap.from('.trade', {opacity: 0, duration: 1, delay:1.6, y: 30})
+gsap.from('.container', {opacity: 0, duration: 1, delay:1.8, y: 30})
+gsap.from('.scroll-top', {opacity: 0, duration: 1, delay:1.8, y: 30})
+
+//Scroll-top function setup
 
 function stickyHeader () {
   if ($('.l-main').length) {
@@ -104,6 +128,17 @@ function stickyHeader () {
 
   };
 }
+
+// DOM ready function
+jQuery(document).on('ready', function() {
+	(function ($) {
+	   removePlaceholder ();
+     scrollToTop ();
+     // closeSuccessAlert ();
+     // subMenuExpend ()
+  })(jQuery);
+});
+
 
 /*===== WINDOW SCROLL FUNCTION =====*/
 jQuery(window).on('scroll', function () {
