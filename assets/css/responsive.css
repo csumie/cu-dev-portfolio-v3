@@ -248,15 +248,21 @@
   }
 }
 
-/*------------------*/
-/*(min-width: 385px)*/
-/*------------------*/
+  /*===================================*/
+ /*====HOME DESCRIPTION FONT SIZE ====*/
+/*===================================*/
 
-/* @media (max-width: 280px) {
-    #projects-section .projects-content p {
-    font-size: 12px;
+@media (max-width: 280px){
+.home__description {
+    font-size: 1.2rem;
   }
-} */
+}
+
+@media (max-width: 367px) {
+    .home__description {
+    font-size: 1.4rem;
+  }
+}
 
 /*------------------*/
 /*(min-width: 385px)*/
