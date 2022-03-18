@@ -1,155 +1,107 @@
+/*===== SHOW MENU =====*/
+const showMenu = (toggleId, navId) =>{
+    const toggle = document.getElementById(toggleId),
+        nav = document.getElementById(navId)
 
-"use strict";
-
-
-/*===== LOADER =====*/
-
- function prealoader () {
-   if ($('#preloader_1').length) {
-     $('#preloader_1').fadeOut(); // will first fade out the loading animation
-     $('#loader-wrapper').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
-     $('body').delay(350).css({'overflow':'visible'});
-  };
- }
-
-
-// placeholder remove
-function removePlaceholder () {
-  if ($("input,textarea").length) {
-    $("input,textarea").each(
-            function(){
-                $(this).data('holder',$(this).attr('placeholder'));
-                $(this).on('focusin', function() {
-                    $(this).attr('placeholder','');
-                });
-                $(this).on('focusout', function() {
-                    $(this).attr('placeholder',$(this).data('holder'));
-                });
-
-        });
-  }
+    if(toggle && nav){
+        toggle.addEventListener('click', ()=>{
+            nav.classList.toggle('show-menu')
+        })
+    }
 }
+showMenu('nav-toggle','nav-menu')
 
+/*===== REMOVE MENU MOBILE =====*/
+const navLink = document.querySelectorAll('.nav__link')
 
-/*===== SCROLL TO TOP =====*/
-
-function scrollToTop () {
-  if ($('.scroll-top').length) {
-
-    //Check to see if the window is top if not then display button
-    $(window).on('scroll', function (){
-      if ($(this).scrollTop() > 200) {
-        $('.scroll-top').fadeIn();
-      } else {
-        $('.scroll-top').fadeOut();
-      }
-    });
-
-    //Click event to scroll to top
-    $('.scroll-top').on('click', function() {
-      $('html, body').animate({scrollTop : 0},1500);
-      return false;
-    });
-  }
+function linkAction(){
+    const navMenu = document.getElementById('nav-menu')
+    navMenu.classList.remove('show-menu')
 }
+navLink.forEach(n => n.addEventListener('click', linkAction))
 
+/*===== SCROLL SECTIONS ACTIVE LINK =====*/
+const sections = document.querySelectorAll('section[id]')
 
-/*===== MENU SHOW Y HIDDEN =====*/
-const navMenu = document.getElementById('nav-menu'),
-    toggleMenu = document.getElementById('nav-toggle'),
-    closeMenu = document.getElementById('nav-close')
+function scrollActive(){
+    const scrollY = window.pageYOffset
 
-// SHOW
-toggleMenu.addEventListener('click', ()=>{
-    navMenu.classList.toggle('show')
-})
+    sections.forEach(current =>{
+        const sectionHeight = current.offsetHeight
+        const sectionTop = current.offsetTop - 50;
+        sectionId = current.getAttribute('id')
 
-// HIDDEN
-closeMenu.addEventListener('click', ()=>{
-    navMenu.classList.remove('show')
-})
-
-/*===== MOUSEMOVE HOME IMG =====*/
-document.addEventListener('mousemove', move);
-function move(e){
-    this.querySelectorAll('.move').forEach(layer =>{
-        const speed = layer.getAttribute('data-speed')
-
-        const x = (window.innerWidth - e.pageX*speed)/120
-        const y = (window.innerHeight - e.pageY*speed)/120
-
-        layer.style.transform = `translateX(${x}px) translateY(${y}px)`
+        if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight){
+            document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.add('active-link')
+        }else{
+            document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.remove('active-link')
+        }
     })
 }
+window.addEventListener('scroll', scrollActive)
 
-/*===== GSAP ANIMATION =====*/
-// NAV
-gsap.from('.nav__logo, .nav__toggle', {opacity: 0, duration: 1, delay:2, y: 10})
-gsap.from('.nav__item', {opacity: 0, duration: 1, delay: 2.1, y: 30, stagger: 0.2,})
-
-// HOME
-gsap.from('.home__title', {opacity: 0, duration: 1, delay:1.6, y: 30})
-gsap.from('.home__description', {opacity: 0, duration: 1, delay:1.8, y: 30})
-gsap.from('.home__button', {opacity: 0, duration: 1, delay:2.1, y: 30})
-gsap.from('.home__img', {opacity: 0, duration: 1, delay:1.3, y: 30})
-
-// ABOUT
-gsap.from('.about', {opacity: 0, duration: 1, delay:1.6, y: 30})
-gsap.from('.title', {opacity: 0, duration: 1, delay:1.8, y: 30})
-gsap.from('.aboutMe', {opacity: 0, duration: 1, delay:2.1, y: 30})
-
-// SKILLS
-gsap.from('.skills-section', {opacity: 0, duration: 1, delay:1.6, y: 30})
-gsap.from('.row', {opacity: 0, duration: 1, delay:1.8, y: 30})
-// gsap.from('.', {opacity: 0, duration: 1, delay:2.1, y: 30})
-
-// PROJECTS
-gsap.from('.projects-section', {opacity: 0, duration: 1, delay:1.6, y: 30})
-gsap.from('.container-project', {opacity: 0, duration: 1, delay:1.8, y: 30})
-
-// CONTACT CONTAINER AND FORM
-gsap.from('.contact-container', {opacity: 0, duration: 1, delay:1.6, y: 30})
-gsap.from('.cognito', {opacity: 0, duration: 1, delay:1.8, y: 30})
-
-// FOOTER
-gsap.from('.trade', {opacity: 0, duration: 1, delay:1.6, y: 30})
-gsap.from('.container', {opacity: 0, duration: 1, delay:1.8, y: 30})
-gsap.from('.scroll-top', {opacity: 0, duration: 1, delay:1.8, y: 30})
-
-//Scroll-top function setup
-
-function stickyHeader () {
-  if ($('.l-main').length) {
-    var sticky = $('.l-main'),
-        scroll = $(window).scrollTop();
-
-    if (scroll >= 100) sticky.addClass('fixed');
-    else sticky.removeClass('fixed');
-
-  };
+/*===== CHANGE BACKGROUND HEADER =====*/ 
+function scrollHeader(){
+    const nav = document.getElementById('header');
+    if(this.scrollY >= 200) nav.classList.add('scroll-header'); else nav.classList.remove('scroll-header');
 }
+window.addEventListener('scroll', scrollHeader)
 
-// DOM ready function
-jQuery(document).on('ready', function() {
-	(function ($) {
-	   removePlaceholder ();
-     scrollToTop ();
-     // closeSuccessAlert ();
-     // subMenuExpend ()
-  })(jQuery);
+/*===== SHOW SCROLL TOP=====*/ 
+function scrollTop(){
+    const scrollTop = document.getElementById('scroll-top');
+    if(this.scrollY >= 560) scrollTop.classList.add('show-scroll'); else scrollTop.classList.remove('show-scroll');
+}
+window.addEventListener('scroll', scrollTop)
+
+/*===== MIXITUP FILTER PORTFOLIO =====*/ 
+var mixer = mixitup(".portfolio__container", {
+    selectors: {
+        target: '.portfolio__content'
+    },
+    animation: {
+        duration: 400
+    }
 });
 
+/* Link active portfolio */ 
+const linkPortfolio = document.querySelectorAll('.portfolio__item')
 
-/*===== WINDOW SCROLL FUNCTION =====*/
-jQuery(window).on('scroll', function () {
-  (function ($) {
-    stickyHeader ()
-  })(jQuery);
-});
+function activePortfolio(){
+    if(linkPortfolio){
+        linkPortfolio.forEach(l=> l.classList.remove('active-portfolio'))
+        this.classList.add('active-portfolio')
+    }
+}
+linkPortfolio.forEach(l=> l.addEventListener('click', activePortfolio))
 
-/*===== LOADER FUNCTION =====*/
-jQuery(window).on('load', function () {
-   (function ($) {
-      prealoader ()
-  })(jQuery);
- });
+/*===== SWIPER CAROUSEL =====*/ 
+const mySwiper = new Swiper('.testimonial__container', {
+    spaceBetween: 16,
+    loop: true,
+    grabCursor: true,
+    
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+    breakpoints: {
+        640: {
+            slidesPerView: 2,
+        },
+        1024: {
+            slidesPerView: 3,
+        },
+    }
+})
+
+gsap.from('.home__img', {opacity: 0, duration: 2, delay: .5, x: 60})
+
+gsap.from('.home__data', {opacity: 0, duration: 2, delay: .8, y: 25})
+gsap.from('.home__greeting, .home__name, .home__profession, .home__button', {opacity: 0, duration: 2, delay: 1, y: 25, ease:'expo.out', stagger: .2})
+
+gsap.from('.nav__logo, .nav__toggle', {opacity:0, duration: 2, delay: 1.5, y: 25, ease:'expo.out', stagger: .2});
+gsap.from('.nav__item', {opacity:0, duration: 2, delay: 1.8, y: 25, ease:'expo.out', stagger: .2});
+gsap.from('.home__social-icon', {opacity: 0, duration: 2.5, delay: 2.3, y: 25, ease:'expo.out', stagger: .2})
+
+
