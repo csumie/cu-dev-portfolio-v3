@@ -582,6 +582,20 @@ font-size: 1.3rem;
     padding: 3%;
 }
 
+.cog-branding--minimal {
+    visibility: hidden !important;
+    display: none !important;
+}
+
+.cog-abuse ul {
+    display: none;
+}
+
+.cog-cognito hr {
+    display: none;
+}
+
+
 
 /*===== FOOTER =====*/
 .footer {
