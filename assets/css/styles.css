@@ -588,10 +588,12 @@ font-size: 1.3rem;
 }
 
 .cog-abuse ul {
+    visibility: hidden !important;
     display: none;
 }
 
 .cog-cognito hr {
+    visibility: hidden !important;
     display: none;
 }
 
